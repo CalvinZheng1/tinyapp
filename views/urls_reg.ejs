@@ -11,16 +11,22 @@
       <title>Document</title>
     </head>
     <body>
-      <form method="POST" action="/register">
-        <label for="user-id"> ID: </label>
-        <input type="text" id="user-id" name="userID"/>
-        <label for="email-id"> Email: </label>
-        <input type="email" id="email-id" name="emailID" placeholder="example@gmail.com" /><br/>
-        <label for="password-id"> Password: </label>
-        <input type="password" id="password-id" name="passwordID" placeholder="********" /><br/>
-        <button type="submit"class="btn btn-primary">Register</button>
+      <%- include('partials/_header') %>
+      <main style="margin: 1em;">
+        <h4>Register 🍕</h4>
+      <form method=POST action="/register">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input name="email" type="email" class="form-control" id="email" placeholder="Enter Email">
+        </div>
+        <div class="form-group" name=password>
+          <label for="">Password</label>
+          <input name="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
       </form>
-
+    </main>
+  
 
       <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
