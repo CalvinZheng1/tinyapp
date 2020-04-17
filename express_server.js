@@ -14,13 +14,14 @@ const urlDatabase = {};
 const users = {};
 
 
-//functions
+//function for generating shortURL and USERID(RANDOM)
 const generateRandomString = () => {
   const alphanumeric = 'abcdefghijklmnopqrstuvwxyz0123456789';
   return [...Array(6)]
     .map(() => alphanumeric[Math.floor(Math.random() * 36)])
     .join('');
 };
+//function checking if userID already exists in database upon register
 const urlsForUser = userId => {
   return Object.entries(urlDatabase).reduce((acc, [shortURL, urlInfo]) => {
     return urlInfo.userID === userId ? {...acc, [shortURL]: urlInfo} : acc;
@@ -28,7 +29,8 @@ const urlsForUser = userId => {
 };
 
 app.set('view engine', 'ejs');
-//middleware
+
+//middleware for cookies
 app.use(cookieSession({
   name: 'session',
   secret: 'AKTi6ZrOK07q6mosGZJigZjM+GCODRbsTs9n85ZraBZXmDu3QuHCOlBYa7U='
@@ -37,7 +39,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 
-
+//homepage preset
 app.get('/', (req, res) => {
   res.send('Hello!');
 });
@@ -61,6 +63,7 @@ app.post('/urls', (req, res) => {
   };
   res.redirect(`/urls/${shortURL}`);
 });
+
 //creating tinyurl for new long url
 app.get('/urls/new', (req, res) => {
   if (!users[req.session.user_id]) {
@@ -89,7 +92,7 @@ app.get('/urls/:shortURL', (req, res) => {
   };
   res.render('urls_show', templateVars);
 });
-
+// verifying if login matches userID who created that shortURL
 app.post('/urls/:shortURL', (req, res) => {
   urlDatabase[req.params.shortURL].longURL = req.body.longUrl;
   if (req.session.user_id !== urlDatabase[req.params.shortURL].userID) {
@@ -98,7 +101,7 @@ app.post('/urls/:shortURL', (req, res) => {
   urlDatabase[req.params.shortURL].longURL = req.body.longURL;
   res.redirect('/urls');
 });
-
+//verifying userID to authorize delete
 app.post('/urls/:shortURL/delete', (req, res) => {
   if (req.session.user_id !== urlDatabase[req.params.shortURL].userID) {
     return res.status(403).send('You must be logged in to delete a url.');
