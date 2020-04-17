@@ -5,8 +5,9 @@ This TinyApp has been personalized with emojis and colour schemes.
 
 ## Final Product
 
-!["screenshot description"](#)
-!["screenshot description"](#)
+!["Register Page"](https://github.com/CalvinZheng1/tinyapp/blob/master/docs/register-page.png?raw=true)
+!["Urls Main Page"](https://github.com/CalvinZheng1/tinyapp/blob/master/docs/urls-page.png?raw=true)
+!["Creating Urls Page"](https://github.com/CalvinZheng1/tinyapp/blob/master/docs/createurls-page.png?raw=true)
 
 ## Dependencies
 
