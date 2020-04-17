@@ -10,9 +10,10 @@ const { getUserByEmail } = require('./helpers');
 
 //Database
 const urlDatabase = {};
-
 //all users (from registration page)
 const users = {};
+
+
 //functions
 const generateRandomString = () => {
   const alphanumeric = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -33,6 +34,9 @@ app.use(cookieSession({
   secret: 'AKTi6ZrOK07q6mosGZJigZjM+GCODRbsTs9n85ZraBZXmDu3QuHCOlBYa7U='
 }));
 app.use(bodyParser.urlencoded({extended: true}));
+
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello!');
@@ -67,6 +71,9 @@ app.get('/urls/new', (req, res) => {
   };
   res.render('urls_new', templateVars);
 });
+
+
+//SHORTURL GET and POSTS
 //viewing current shorturl -added security for personal urls
 app.get('/urls/:shortURL', (req, res) => {
   if (!users[req.session.user_id]) {
@@ -107,7 +114,11 @@ app.get('/urls.json', (req, res) => {
 app.get('/u/:shortURL', (req, res) => {
   res.redirect(urlDatabase[req.params.shortURL].longURL);
 });
-//render register 
+
+
+
+
+//register GET and POSTS
 app.get('/register', (req, res) => {
   let templateVars = {
     user: users[req.session.user_id]
@@ -132,6 +143,8 @@ app.post('/register', (req, res) => {
   res.redirect('/urls');
 });
 
+
+//login GET and POSTS
 app.get('/login', (req, res) => {
   let templateVars = {
     user: users[req.session.user_id]
